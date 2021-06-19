@@ -22,6 +22,8 @@ namespace Api
         {
             DependencyInjection.GetModules(services, Configuration);
 
+            services.AddMetrics();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

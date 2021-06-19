@@ -5,11 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Metrics\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="App.Metrics" Version="4.2.0" />
     <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>

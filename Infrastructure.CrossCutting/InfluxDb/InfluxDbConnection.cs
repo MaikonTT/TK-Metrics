@@ -4,7 +4,7 @@ using System;
 
 namespace Infrastructure.CrossCutting.InfluxDb
 {
-    public static class InfluxDb
+    public static class InfluxDbConnection
     {
         public static void SetConfigurations(MetricsReportingInfluxDbOptions options, InfluxDbConfiguration configuration)
         {
