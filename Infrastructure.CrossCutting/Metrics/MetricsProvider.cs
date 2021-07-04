@@ -31,11 +31,11 @@ namespace Infrastructure.CrossCutting.Metrics
         public void SetMetricTags(string[] keys, string[] values)
             => _tags = new MetricTags(keys, values);
 
-        public async Task<T> ExecuteTimerMeasureWithResult<T>(Func<Task<T>> action, string userValue)
+        public T ExecuteTimerMeasureWithResult<T>(Func<T> action, string userValue)
         {
             using (_metrics.Measure.Timer.Time(_timerOptions, _tags, userValue))
             {
-                return await action();
+                return action();
             }
         }
 

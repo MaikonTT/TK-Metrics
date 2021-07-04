@@ -14,7 +14,19 @@ namespace Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+            finally
+            {
+                Console.Clear();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)
@@ -23,17 +35,17 @@ namespace Api
             var influxDbConfiguration = configuration.GetSection("InfluxDbConfiguration").Get<InfluxDbConfiguration>();
 
             return Host.CreateDefaultBuilder(args)
+                .ConfigureMetricsWithDefaults(builder =>
+                {
+                    builder.Report.ToInfluxDb(options =>
+                    {
+                        InfluxDbConnection.SetConfigurations(options, influxDbConfiguration);
+                    })
+                    .Report.ToConsole();
+                })
+                .UseMetrics()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureMetricsWithDefaults(builder =>
-
-                    {
-                        builder.Report.ToInfluxDb(options =>
-                        {
-                            InfluxDbConnection.SetConfigurations(options, influxDbConfiguration);
-                        });
-                    });
-                    webBuilder.UseMetrics();
                     webBuilder.UseStartup<Startup>();
                 });
         }

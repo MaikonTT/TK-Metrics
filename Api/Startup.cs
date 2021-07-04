@@ -1,3 +1,4 @@
+using Api.Middlewares;
 using Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,8 +23,6 @@ namespace Api
         {
             DependencyInjection.GetModules(services, Configuration);
 
-            services.AddMetrics();
-
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -43,6 +42,8 @@ namespace Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<MetricMiddleware>();
 
             app.UseRouting();
 

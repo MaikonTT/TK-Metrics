@@ -1,6 +1,8 @@
 ﻿using Domain.Configurations;
+using Domain.Providers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace Infrastructure.DependencyInjection.Modules
 {
@@ -10,6 +12,11 @@ namespace Infrastructure.DependencyInjection.Modules
         {
             var influxDbConfiguration = configuration.GetSection("InfluxDbConfiguration").Get<InfluxDbConfiguration>();
             services.AddSingleton(influxDbConfiguration);
+
+            var metricMiddlewareConfiguration = configuration.GetSection("MetricMiddlewareConfiguration").Get<IEnumerable<MetricMiddlewareConfiguration>>();
+            services.AddSingleton(metricMiddlewareConfiguration);
+
+            services.AddTransient<ITimerProvider, TimerProvider>();
         }
     }
 }

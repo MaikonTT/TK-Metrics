@@ -15,7 +15,7 @@ namespace Infrastructure.CrossCutting.InfluxDb
             options.InfluxDb.CreateDataBaseIfNotExists = true;
             options.HttpPolicy.BackoffPeriod = TimeSpan.FromSeconds(30);
             options.HttpPolicy.FailuresBeforeBackoff = 5;
-            options.FlushInterval = TimeSpan.FromSeconds(5);
+            options.FlushInterval = TimeSpan.FromSeconds(10);
         }
     }
 }

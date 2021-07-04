@@ -24,9 +24,11 @@ namespace Infrastructure.CrossCutting.Metrics
                 {
                     InfluxDbConnection.SetConfigurations(options, influxDbConfiguration);
                 })
+                .Report.ToConsole()
                 .Build();
 
             services.AddSingleton(metrics);
+
             services.AddTransient<IMetricsProvider, MetricsProvider>();
 
             return services;
